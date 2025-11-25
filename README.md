@@ -61,7 +61,7 @@ exec zsh
 
 Make sure the scripts are executable
 ```sh
-cd .dotfiles/setup/
+cd ~/.dotfiles/setup/
 chmod +x bootstrap.sh linux.sh verify.sh
 ```
 
