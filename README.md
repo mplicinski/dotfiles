@@ -46,7 +46,7 @@ git clone git@github.com:mplicinski/dotfiles.git ~/.dotfiles
 Make sure the scripts are executable
 ```sh
 cd ~/.dotfiles/setup/
-chmod +x bootstrap.sh linux.sh verify.sh
+chmod +x bootstrap.sh macos.sh verify.sh
 ```
 
 Run the setup scripts
