@@ -43,26 +43,32 @@ git clone git@github.com:mplicinski/dotfiles.git ~/.dotfiles
 
 ### Setup on MacOS
 
+Make sure the scripts are executable
 ```sh
-cd ~/.dotfiles
+cd ~/.dotfiles/setup/
+chmod +x bootstrap.sh linux.sh verify.sh
+```
 
-chmod +x bootstrap.sh setup/macos.sh
-
-./setup/macos.sh
-./setup/bootstrap.sh
+Run the setup scripts
+```sh
+./macos.sh
+./bootstrap.sh
 
 exec zsh
 ```
 
 ### Setup on Linux/ WSL
 
+Make sure the scripts are executable
 ```sh
-cd ~/.dotfiles
+cd .dotfiles/setup/
+chmod +x bootstrap.sh linux.sh verify.sh
+```
 
-chmod +x bootstrap.sh setup/linux.sh
-
-./setup/linux.sh
-./setup/bootstrap.sh
+Run the setup scripts
+```sh
+./linux.sh
+./bootstrap.sh
 
 exec zsh
 ```
