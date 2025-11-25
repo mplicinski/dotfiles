@@ -49,7 +49,7 @@ cd ~/.dotfiles
 chmod +x bootstrap.sh setup/macos.sh
 
 ./setup/macos.sh
-./bootstrap.sh
+./setup/bootstrap.sh
 
 exec zsh
 ```
@@ -62,7 +62,7 @@ cd ~/.dotfiles
 chmod +x bootstrap.sh setup/linux.sh
 
 ./setup/linux.sh
-./bootstrap.sh
+./setup/bootstrap.sh
 
 exec zsh
 ```
