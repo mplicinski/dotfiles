@@ -22,8 +22,8 @@ link "$DOTFILES/tmux/.tmux.conf" "$HOME/.tmux.conf"
 link "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
 
 mkdir -p "$HOME/.config"
+mkdir -p "$HOME/.config/karabiner"
 link "$DOTFILES/nvim/.config/nvim" "$HOME/.config/nvim"
 link "$DOTFILES/oh-my-posh/.config/oh-my-posh" "$HOME/.config/oh-my-posh"
-link "$DOTFILES/karabiner/.config/karabiner" "$HOME/.config/karabiner"
-
+link "$DOTFILES/karabiner/.config/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
 echo "Done."
