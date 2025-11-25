@@ -1,0 +1,10 @@
+brew "neovim"
+brew "tmux"
+brew "fzf"
+brew "ripgrep"
+brew "tree"
+brew "node"
+brew "wget"
+brew "curl"
+
+cask "karabiner-elements"
