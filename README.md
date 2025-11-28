@@ -2,8 +2,6 @@
 
 My dotfiles for both MacOS & Linux. Includes essentials tools & packages, setup scripts, and enviroment specific configurations. 
 
-It uses symlinks so the real files live here in the repo, and the system just points to them. 
-
 ---
 
 ## Included Configurations
