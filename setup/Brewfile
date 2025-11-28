@@ -1,0 +1,21 @@
+# Taps
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+
+# CLI tools
+brew "neovim"
+brew "tmux"
+brew "fzf"
+brew "ripgrep"
+brew "tree"
+brew "node"
+brew "wget"
+brew "curl"
+brew "git"
+
+# Font for oh-my-posh
+cask "font-meslo-lg-nerd-font"
+
+# GUI apps
+cask "karabiner-elements" # hotkeys & macros
+cask "iterm2"

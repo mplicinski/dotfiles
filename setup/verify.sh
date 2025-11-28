@@ -5,9 +5,9 @@ RED='\033[0;31m'
 YELLOW='\033[0;33m'
 RESET='\033[0m'
 
-ok()    { printf "[${GREEN}OKAY${RESET}]    %s\n" "$1"; }
-warn()  { printf "[${YELLOW}WARN${RESET}]    %s\n" "$1"; }
-err()   { printf "[${RED}FAIL${RESET}]    %s\n" "$1"; }
+ok()    { printf "[${GREEN}OKAY${RESET}] %s\n" "$1"; }
+warn()  { printf "[${YELLOW}WARN${RESET}] %s\n" "$1"; }
+err()   { printf "[${RED}FAIL${RESET}] %s\n" "$1"; }
 
 printf "Checking symlinks...\n"
 targets=(
@@ -18,7 +18,7 @@ targets=(
   "$HOME/.config/oh-my-posh"
 )
 
-# Add Karabiner config check on macOS
+# Karabiner config check on macOS
 if [[ "$(uname)" == "Darwin" ]]; then
   targets+=("$HOME/.config/karabiner/karabiner.json")
 fi
@@ -35,7 +35,7 @@ done
 printf "\n"
 printf "Checking CLI tools...\n"
 
-tools=(zsh git nvim tmux fzf rg curl wget tree)
+tools=(zsh git nvim tmux fzf rg curl wget tree pip3 unzip)
 
 for tool in "${tools[@]}"; do
   if command -v $tool >/dev/null 2>&1; then
