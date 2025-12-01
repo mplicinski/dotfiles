@@ -13,15 +13,28 @@ case "$(uname -s)" in
     ;;
 esac
 
-# WSL-only startup art
-if $IS_WSL && [[ -z "$NIMBUS_ASCII_SHOWN" ]]; then
-  clear
+# Always start in $HOME if opening a login shell
+if [[ "$PWD" != "$HOME" ]] && [[ -z "$WSLENV_LOADED" ]]; then
   cd "$HOME"
-  [[ -f "$HOME/.nimbus.ascii" ]] && cat "$HOME/.nimbus.ascii"
-  export NIMBUS_ASCII_SHOWN=1
 fi
 
-# Basic settings (shared)
+# ASCII startup art
+if [[ -z "$ASCII_SHOWN" ]]; then
+  clear
+
+  if $IS_WSL; then
+    # Nimbus banner on WSL
+    [[ -f "$HOME/.ascii/nimbus.ascii" ]] && cat "$HOME/.ascii/nimbus.ascii"
+  elif $IS_DARWIN; then
+    # Apple banner on macOS
+    [[ -f "$HOME/.ascii/apple.ascii" ]] && cat "$HOME/.ascii/apple.ascii"
+  fi
+
+  echo
+  export ASCII_SHOWN=1
+fi
+
+# --- Basic settings (shared) ---
 
 # Default editor
 export EDITOR=vim   # swap to nvim later if you want
@@ -37,11 +50,13 @@ setopt inc_append_history
 # Useful options
 setopt autocd          # type a directory name to cd into it
 setopt correct         # typo correction for commands
-setopt extended_glob
+setopt extended_glob   # extended wildcard matching
 
 # PATH base (shared)
 # Local bin
 export PATH="$HOME/.local/bin:$PATH"
+
+# -------------------------------
 
 # macOS-specific paths & tools
 if $IS_DARWIN; then

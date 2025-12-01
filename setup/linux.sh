@@ -9,7 +9,7 @@ RESET='\033[0m'
 info()  { printf "[${BLUE}INFO${RESET}] %s\n" "$1"; }
 ok()    { printf "[${GREEN}OKAY${RESET}] %s\n" "$1"; }
 warn()  { printf "[${YELLOW}WARN${RESET}] %s\n" "$1"; }
-err()   { printf "[${RED}FAIL${RESET}] %s\n" "$1"; exit 1; }
+err()   { printf "[${RED}FAIL${RESET}] %s\n" "$1"; }
 
 set -e
 
@@ -21,10 +21,16 @@ if grep -qi microsoft /proc/version 2>/dev/null || [ -n "$WSL_DISTRO_NAME" ]; th
     is_wsl=true
 fi
 
+# Ensure script is running on a linux system
 if ! command -v apt >/dev/null 2>&1; then
-    err "apt not found. linux.sh is intended for Ubuntu/Debian/Arch/WSL."
-    exit 1
+    err "apt not found. linux.sh is intended for Ubuntu/Debian/WSL."
 fi
+
+# Helper function to check if package is installed
+is_pkg_installed() {
+    local pkg="$1"
+    dpkg-query -W -f='${Status}\n' "$pkg" 2>/dev/null | grep -q "install ok installed"
+}
 
 info "Updating apt package index."
 sudo apt update
@@ -45,17 +51,18 @@ PACKAGES=(
     unzip
 )
 
-# Check for missing packages and install them 
+# Check for missing packages and install them
 MISSING_PACKAGES=()
 for pkg in "${PACKAGES[@]}"; do
-    if ! dpkg -s "$pkg" >/dev/null 2>&1; then
-        MISSING_PACKAGES=("$pkg")
+    if ! is_pkg_installed "$pkg"; then
+        MISSING_PACKAGES+=("$pkg")
     fi
 done
 
 if [ "${#MISSING_PACKAGES[@]}" -gt 0 ]; then
-    ok "Installing packages: ${MISSING_PACKAGES[*]}"
+    info "Missing packages: ${MISSING_PACKAGES[*]}"
     sudo apt install -y "${MISSING_PACKAGES[@]}"
+    ok "Installed missing CLI tools."
 else
     ok "All CLI tools already installed. Skipping."
 fi
@@ -66,13 +73,12 @@ pip3 install --user pynvim >/dev/null 2>&1 || true
 info "Ensuring ~/.local/bin exists and is on PATH."
 mkdir -p "$HOME/.local/bin"
 
-# Check if ~/.local/bin is already in PATH 
+# Check if ~/.local/bin is already in PATH
 case ":$PATH:" in
   *":$HOME/.local/bin:"*)
     ok "~/.local/bin already in PATH."
     ;;
   *)
-    # Add to ~/.profile if not already there
     if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' "$HOME/.profile" 2>/dev/null; then
         echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.profile"
         ok "Added ~/.local/bin to PATH in ~/.profile."
@@ -80,21 +86,17 @@ case ":$PATH:" in
         ok "~/.local/bin already referenced in ~/.profile."
     fi
 
-    # Update PATH for the current shell session
     export PATH="$HOME/.local/bin:$PATH"
     info "Updated PATH for current session."
     ;;
 esac
 
-
 info "Installing Oh-My-Posh via official installer."
 if command -v oh-my-posh >/dev/null 2>&1; then
-    ok "oh-my-posh already installed. Skipping installer."
+    ok "oh-my-posh already installed. Skipping."
 else
-    # Official install script
     curl -s https://ohmyposh.dev/install.sh | bash -s || {
         err "oh-my-posh installation failed."
-        exit 1
     }
     ok "oh-my-posh installed successfully."
 fi
@@ -106,7 +108,7 @@ if [ "$is_wsl" = true ]; then
         wget -q https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
         unzip -o win32yank-x64.zip >/dev/null
         sudo mv win32yank.exe /usr/local/bin/
-        sudo chmod x /usr/local/bin/win32yank.exe
+        sudo chmod +x /usr/local/bin/win32yank.exe
         ok "win32yank installed."
     else
         ok "win32yank.exe already present in PATH. Skipping."
@@ -116,4 +118,3 @@ else
 fi
 
 ok "Linux/WSL setup complete."
-

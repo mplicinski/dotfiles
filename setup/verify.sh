@@ -3,8 +3,10 @@
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
 RESET='\033[0m'
 
+info()  { printf "[${BLUE}INFO${RESET}] %s\n" "$1"; }
 ok()    { printf "[${GREEN}OKAY${RESET}] %s\n" "$1"; }
 warn()  { printf "[${YELLOW}WARN${RESET}] %s\n" "$1"; }
 err()   { printf "[${RED}FAIL${RESET}] %s\n" "$1"; }
@@ -16,6 +18,7 @@ targets=(
   "$HOME/.tmux.conf"
   "$HOME/.config/nvim"
   "$HOME/.config/oh-my-posh"
+  "$HOME/.ascii"
 )
 
 # Karabiner config check on macOS
@@ -25,7 +28,6 @@ fi
 
 for file in "${targets[@]}"; do
   if [ -L "$file" ]; then
-    # printf "[OK] $file -> $(readlink "$file")\n"
     ok "$file -> $(readlink "$file")"
   else
     err "Missing or not a symlink: $file"
@@ -41,6 +43,6 @@ for tool in "${tools[@]}"; do
   if command -v $tool >/dev/null 2>&1; then
     ok "$tool installed"
   else
-    warn "$tool missing"
+    err "$tool missing"
   fi
 done
