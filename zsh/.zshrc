@@ -55,6 +55,7 @@ setopt extended_glob   # extended wildcard matching
 # PATH base (shared)
 # Local bin
 export PATH="$HOME/.local/bin:$PATH"
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 # -------------------------------
 
