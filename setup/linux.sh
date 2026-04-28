@@ -49,6 +49,8 @@ PACKAGES=(
     python3-pip
     ca-certificates
     unzip
+    zsh-autosuggestions
+    zsh-syntax-highlighting
 )
 
 # Check for missing packages and install them
