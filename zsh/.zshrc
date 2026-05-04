@@ -83,7 +83,7 @@ fi
 # Prompt: oh-my-posh if available, fallback otherwise
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ] && command -v oh-my-posh >/dev/null 2>&1; then
   # Shared oh-my-posh config (works on macOS + WSL)
-  eval "$(oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/powerlevel10k_amber.omp.json")"
+  eval "$(oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/tokyonight_storm.omp.json")"
 else
   # Fallback prompt 
   autoload -Uz colors promptinit
