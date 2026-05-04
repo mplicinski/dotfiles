@@ -3,6 +3,8 @@ tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 
 # CLI tools
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
 brew "neovim"
 brew "tmux"
 brew "fzf"

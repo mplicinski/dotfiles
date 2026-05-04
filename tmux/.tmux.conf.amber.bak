@@ -1,0 +1,55 @@
+##### AMBER THEME #####
+
+set-option -g default-shell $SHELL
+
+# Enable the status bar
+set -g status on
+set -g status-style "bg=#FFBF00,fg=black"
+
+# Active window style
+# set-window-option -g window-status-current-style fg=purple,bg=#FFBF00
+set-window-option -g window-status-current-style fg=purple
+set-window-option -g window-status-current-format " #[bold]I:#W "
+
+# Inactive window style
+set-window-option -g window-status-style "bg=default,fg=#FFBF00"
+set-window-option -g window-status-format " #I:#W "
+
+# Pane border colors
+set -g pane-border-style "fg=#664400"          # Inactive pane border (dark amber)
+set -g pane-active-border-style "fg=#FFBF00"   # Active pane border (bright amber
+
+# Clock mode (used by prefix + t)
+set -g clock-mode-colour black
+set -g clock-mode-style 24
+
+# Status bar padding (optional aesthetic tweak)
+set -g status-left-length 20
+set -g status-right-length 60
+set -g status-interval 5
+
+# Clean up status bar sides
+set -g status-left ''
+set -g status-right '#[fg=black,bg=#FFBF00] %H:%M:%S '
+
+# Use mouse (tmux ≥ 2.1)
+set -g mouse on
+
+# Set copy to clipboard on
+set -g set-clipboard on
+
+##### PLUGINS #####
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+# Automatically restore sessions on tmux start
+set -g @continuum-restore 'on'
+
+# Optional: auto-save every 10 minutes instead of default 15
+set -g @continuum-save-interval '10'
+
+# Initialize TPM delete - final step
+run '~/.tmux/plugins/tpm/tpm'

@@ -83,7 +83,7 @@ fi
 # Prompt: oh-my-posh if available, fallback otherwise
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ] && command -v oh-my-posh >/dev/null 2>&1; then
   # Shared oh-my-posh config (works on macOS + WSL)
-  eval "$(oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/powerlevel10k_amber.omp.json")"
+  eval "$(oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/tokyonight_storm.omp.json")"
 else
   # Fallback prompt 
   autoload -Uz colors promptinit
@@ -91,6 +91,23 @@ else
   colors
   PROMPT='%F{cyan}%n@%m%f:%F{yellow}%~%f %# '
 fi
+
+# Zsh plugins: autosuggestions + syntax highlighting
+# macOS: installed via Homebrew; Linux/WSL: cloned into ~/.zsh/
+_load_zsh_plugin() {
+  local brew_path="/opt/homebrew/share/$1/$1.zsh"
+  local clone_path="$HOME/.zsh/$1/$1.zsh"
+  if [[ -f "$brew_path" ]]; then
+    source "$brew_path"
+  elif [[ -f "$clone_path" ]]; then
+    source "$clone_path"
+  elif command -v git >/dev/null 2>&1; then
+    git clone --depth=1 "https://github.com/zsh-users/$1.git" "$HOME/.zsh/$1" 2>/dev/null
+    [[ -f "$clone_path" ]] && source "$clone_path"
+  fi
+}
+_load_zsh_plugin zsh-autosuggestions
+_load_zsh_plugin zsh-syntax-highlighting
 
 # Command re-print / preserve-header behavior
 if [[ -z "$CMD_HIGHLIGHT_ALREADY_BINDED" ]]; then
