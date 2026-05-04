@@ -31,6 +31,8 @@ if [[ -z "$ASCII_SHOWN" ]]; then
   fi
 
   echo
+  command -v fastfetch >/dev/null 2>&1 && fastfetch
+  echo
   export ASCII_SHOWN=1
 fi
 
