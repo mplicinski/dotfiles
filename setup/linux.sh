@@ -43,6 +43,7 @@ PACKAGES=(
     curl
     wget
     git
+    gh
     fzf
     ripgrep
     tree
