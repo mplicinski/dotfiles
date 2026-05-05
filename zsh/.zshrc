@@ -14,7 +14,7 @@ case "$(uname -s)" in
 esac
 
 # Always start in $HOME if opening a login shell
-if [[ "$PWD" != "$HOME" ]] && [[ -z "$WSLENV_LOADED" ]]; then
+if [[ -z "$TMUX" ]] && [[ "$PWD" != "$HOME" ]] && [[ -z "$WSLENV_LOADED" ]]; then
   cd "$HOME"
 fi
 
