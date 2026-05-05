@@ -53,6 +53,7 @@ mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/karabiner"
 link "$DOTFILES/nvim/.config/nvim" "$HOME/.config/nvim"
 link "$DOTFILES/oh-my-posh/.config/oh-my-posh" "$HOME/.config/oh-my-posh"
+link "$DOTFILES/fastfetch/.config/fastfetch" "$HOME/.config/fastfetch"
 link "$DOTFILES/karabiner/.config/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
 
 # ASCII login banner art folder 

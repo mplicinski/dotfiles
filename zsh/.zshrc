@@ -18,20 +18,10 @@ if [[ "$PWD" != "$HOME" ]] && [[ -z "$WSLENV_LOADED" ]]; then
   cd "$HOME"
 fi
 
-# ASCII startup art
-if [[ -z "$ASCII_SHOWN" ]]; then
-  clear
-
-  if $IS_WSL; then
-    # Nimbus banner on WSL
-    [[ -f "$HOME/.ascii/nimbus.ascii" ]] && cat "$HOME/.ascii/nimbus.ascii"
-  elif $IS_DARWIN; then
-    # Apple banner on macOS
-    [[ -f "$HOME/.ascii/apple.ascii" ]] && cat "$HOME/.ascii/apple.ascii"
+if command -v fastfetch >/dev/null 2>&1; then
+  if [[ -z "$TMUX" ]] || [[ "$(tmux display-message -p '#{pane_index}')" == "0" ]]; then
+    fastfetch
   fi
-
-  echo
-  export ASCII_SHOWN=1
 fi
 
 # --- Basic settings (shared) ---

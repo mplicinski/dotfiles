@@ -93,6 +93,25 @@ case ":$PATH:" in
     ;;
 esac
 
+info "Installing fastfetch."
+if command -v fastfetch >/dev/null 2>&1; then
+    ok "fastfetch already installed. Skipping."
+else
+    # Available in Ubuntu 23.10+; fall back to GitHub release binary for older distros
+    if apt-cache show fastfetch >/dev/null 2>&1; then
+        sudo apt install -y fastfetch
+        ok "fastfetch installed via apt."
+    else
+        FASTFETCH_VERSION="2.30.1"
+        FASTFETCH_DEB="fastfetch-linux-amd64.deb"
+        cd /tmp
+        wget -q "https://github.com/fastfetch-cli/fastfetch/releases/download/${FASTFETCH_VERSION}/${FASTFETCH_DEB}"
+        sudo dpkg -i "$FASTFETCH_DEB"
+        rm -f "$FASTFETCH_DEB"
+        ok "fastfetch installed via GitHub release."
+    fi
+fi
+
 info "Installing Oh-My-Posh via official installer."
 if command -v oh-my-posh >/dev/null 2>&1; then
     ok "oh-my-posh already installed. Skipping."
