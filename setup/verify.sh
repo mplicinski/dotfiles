@@ -38,7 +38,7 @@ done
 printf "\n"
 printf "Checking CLI tools...\n"
 
-tools=(zsh git nvim tmux fzf rg curl wget tree pip3 unzip fastfetch)
+tools=(zsh git gh nvim tmux fzf rg curl wget tree pip3 unzip fastfetch)
 
 for tool in "${tools[@]}"; do
   if command -v $tool >/dev/null 2>&1; then
